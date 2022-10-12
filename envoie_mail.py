@@ -8,13 +8,13 @@ from email.mime.image import MIMEImage
 import json
 
 
-USERNAME = str(input("Login mail mines : "))
-PASS_MINES  = str(input("password mail mines : "))
+USERNAME = str(input("Login mail : "))
+PASS_MINES  = str(input("password mail : "))
 
 ctx = ssl.create_default_context()
 password = PASS_MINES  # Your app password goes here
-sender = "{}@mines-ales.org".format(USERNAME)    # Your e-mail address
-
+#sender = "{}@mines-ales.org".format(USERNAME)    # Your e-mail address
+sender = USERNAME
 
 with open("./data/corps.txt", "r", encoding="utf-8") as source_corps:
     corps = source_corps.read()
@@ -80,6 +80,6 @@ def generate_mail(nom_entreprise : str, dpt : str, forum : str, contact : str, c
 
 
 def send_mail(message : MIMEMultipart, receiver : str):
-    with smtplib.SMTP_SSL("mail.mines-ales.org", port=465, context=ctx) as server:
+    with smtplib.SMTP_SSL("smtp.gmail.com", port=465, context=ctx) as server:
         server.login(USERNAME, password)
         server.sendmail(sender, receiver, message.as_string())
